@@ -4,8 +4,7 @@
 % NOTE that the matRoi is the path to the DIFFUSION ROI
 % Use wm_xformROIs to xform functional to diffusion ROIs
 
-close all; clear all; clc; 
-bookKeeping; 
+close all; clear all; clc;  
 
 %% modify here
 
