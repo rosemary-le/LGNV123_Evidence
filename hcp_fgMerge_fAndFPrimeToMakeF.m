@@ -1,7 +1,6 @@
 %% merge f and Fprime to make F
 % assumes Fprime is already made
 clear all; close all; clc; 
-bookKeeping; 
 
 %% modify here
 
@@ -12,15 +11,15 @@ dirAnatomy = '/sni-storage/wandell/biac2/wandell2/data/anatomy/HCP_100307';
 % assumption is that first column is in ROIsConnectomes and second column
 % is in ROIsFiberGroups
 list_fgsToMerge = {
-    'LGN-V1_Benson-FPrimeFibers'      'LGN-V1_200fibers'
-    'LGN-V2_Benson-FPrimeFibers'      'LGN-V2_200fibers' 
-    'LGN-V3_Benson-FPrimeFibers'      'LGN-V3_200fibers' 
+    'LGN-V1_1000fibers_cleaned-FPrimeFibers'      'LGN-V1_1000fibers_cleaned'
+    'LGN-V2_1000fibers_cleaned-FPrimeFibers'      'LGN-V2_1000fibers_cleaned' 
+    'LGN-V3_1000fibers_cleaned-FPrimeFibers'      'LGN-V3_1000fibers_cleaned' 
     };
 
 list_fgNewNames = {
-    'LGN-V1_Benson-FFibers'
-    'LGN-V2_Benson-FFibers'
-    'LGN-V3_Benson-FFibers'
+    'LGN-V1_1000fibers_cleaned-FFibers'
+    'LGN-V2_1000fibers_cleaned-FFibers'
+    'LGN-V3_1000fibers_cleaned-FFibers'
     };
 
 %% do things

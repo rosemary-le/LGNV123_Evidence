@@ -28,16 +28,16 @@ list_conComNames = {
 % location is relative to dirAnatomy
 fDir = 'ROIsFiberGroups';
 list_fNames = {
-    'LGN-V1_200fibers.pdb'
-    'LGN-V2_200fibers.pdb'
-    'LGN-V3_200fibers.pdb'
+    'LGN-V1_1000fibers_cleaned.pdb'
+    'LGN-V2_1000fibers_cleaned.pdb'
+    'LGN-V3_1000fibers_cleaned.pdb'
     };  
 
 % Prime name
 list_saveNames = {
-    'LGN-V1_Benson-FPrimeFibers'
-    'LGN-V2_Benson-FPrimeFibers'
-    'LGN-V3_Benson-FPrimeFibers'
+    'LGN-V1_1000fibers_cleaned-FPrimeFibers'
+    'LGN-V2_1000fibers_cleaned-FPrimeFibers'
+    'LGN-V3_1000fibers_cleaned-FPrimeFibers'
     };
 
 % where to save, relative to dirAnatomy

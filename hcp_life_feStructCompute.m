@@ -20,13 +20,20 @@ dirDiffusion = '/sni-storage/wandell/data/LGNV123_HCP/100307';
 % relative to dirAnatomy
 conDir = 'ROIsConnectomes';
 list_conNames = {
-    'LGN-V1_Benson-FFibers.pdb'
-    'LGN-V1_Benson-FPrimeFibers.pdb'
+    'LGN-V1_1000fibers_cleaned-FFibers.pdb'
+    'LGN-V1_1000fibers_cleaned-FPrimeFibers.pdb'
+    'LGN-V2_1000fibers_cleaned-FFibers.pdb'
+    'LGN-V2_1000fibers_cleaned-FPrimeFibers.pdb'
+    'LGN-V3_1000fibers_cleaned-FFibers.pdb'
+    'LGN-V3_1000fibers_cleaned-FPrimeFibers.pdb'
     };
 
 % where we will save the 
 % relative to dirDiffusion
 saveLoc = 'LiFEStructs';
+
+% Discretization parameter
+N = 360; 
 
 %% do things
 
@@ -53,7 +60,7 @@ for cc = 1:length(list_conNames)
     % compute model accuracry, and perform statistical tests. You can type
     % help('feBuildModel') in the MatLab prompt for more information.
 
-    N = 360; % Discretization parameter
+    
 
     mycomputer = computer();
     release = version('-release');
@@ -82,9 +89,16 @@ for cc = 1:length(list_conNames)
     % save the fe struct for the comprehensive connectome
     % assumption: save the fe struct in the same directory and with the
     % same name as the connectome it is run on
-    chdir(fullfile(dirDiffusion,saveLoc));
+    saveDir = fullfile(dirDiffusion,saveLoc);
+    
+    if ~exist(saveDir)
+        mkdir(saveDir)
+    end
+    
+    chdir(saveDir);
     [~,baseName] = fileparts(conName);
-    save([baseName '_LiFEStruct.mat'], 'fe')
+    saveName = [baseName '_N' num2str(N) '_LiFEStruct.mat']
+    save(saveName, 'fe')
 
     % free space
     clear fe

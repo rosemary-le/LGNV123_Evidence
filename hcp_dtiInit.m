@@ -4,14 +4,8 @@ clear all; close all; clc;
 
 %% modify here
 
-% subject's shared anatomy directory
-dirAnatomy = '/biac4/wandell/data/anatomy/HCP_100307';
-
-% directory with hcp data
-dirHCP = '/sni-storage/wandell/data/LGNV123_HCP';
-
 % subject directory relative to dirHCP
-locSub = '100307';
+locSub = '100408';
 
 % location of Diffusion data relative to locSub
 locData = 'DiffusionRawAndExtracted';
@@ -19,8 +13,17 @@ locData = 'DiffusionRawAndExtracted';
 
 %% define things here
 
+% directory with hcp data
+dirHCP = '/sni-storage/wandell/data/LGNV123_HCP';
+
+% anatomy directory
+dirAnatomy = ['/biac4/wandell/data/anatomy/HCP_' locSub]; 
+
 % path of subjects' acpc'd t1.nii.gz
 t1Path = fullfile(dirAnatomy, 't1.nii.gz'); 
+
+% subject directory
+dirSubject = fullfile(dirHCP, locSub);
 
 % dirDiffusion contains:
 % bvals
@@ -28,7 +31,7 @@ t1Path = fullfile(dirAnatomy, 't1.nii.gz');
 % data.nii.gz
 % nodif_brain_mask.nii.gz -- brain mask in diffusion space
 % subject's dti data path including /Diffusion
-dirDiffusion = fullfile(dirHCP, locSub, locData); 
+dirDiffusion = fullfile(dirSubject, locData); 
 
 % path of the extracted 2000 dti nifti
 niiPath     = fullfile(dirDiffusion, 'dwi_2000.nii.gz');
@@ -44,10 +47,12 @@ dwParams    = dtiInitParams;
 dwParams.bvecsFile = bvecPath;
 dwParams.bvalsFile = bvalPath;
 
-% millimeters per voxel - read the dti.nii.gz
-% the field is 'pixdim' - grab the first 3 values
-nii                 = readFileNifti(niiPath);
-mmPerVox            = nii.pixdim(1:3);
+% anatomy nifti
+niiAnatomy = readFileNifti(t1Path);
+
+% millimeters per voxel - specify it to have the same resolution as the
+% anatomy
+mmPerVox            = niiAnatomy.pixdim(1:3);
 dwParams.dwOutMm    = mmPerVox; 
 dwParams.clobber    = 1; % any existing files silently overwritten
 
@@ -60,9 +65,11 @@ dwParams.phaseEncodeDir = 1;
 dwParams.rotateBvecsWithRx       = false;
 dwParams.rotateBvecsWithCanXform = true; 
 
+%% move a copy of the anatomy to the subject's directory (because dtiInit wants it)
+copyfile(t1Path,dirSubject);
+
 %% do dti init!
 chdir(dirDiffusion)
-
 dtiInit(niiPath, t1Path, dwParams);
 
 

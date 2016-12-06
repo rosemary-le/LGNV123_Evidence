@@ -9,9 +9,6 @@ clear all; close all; clc;
 
 %% modify here
 
-% where the HCP data lives
-dirHCP = '/sni-storage/wandell/data/LGNV123_HCP';
-
 % subject path
 subLoc = '100307';
 
@@ -33,6 +30,10 @@ dataName = 'data.nii.gz';
 roundBval = true; 
 
 %% define things and initialize
+
+% where the HCP data lives
+dirHCP = '/sni-storage/wandell/data/LGNV123_HCP';
+
 dirSubject = fullfile(dirHCP, subLoc);
 
 chdir(dirSubject)
